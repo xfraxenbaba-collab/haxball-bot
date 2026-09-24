@@ -1,4 +1,5 @@
-const Haxball = require("haxball.js");
+const HaxballModule = require("haxball.js");
+const Haxball = HaxballModule.default || HaxballModule;
 
 // Token Railway Environment Variable'dan çekilecek
 const TOKEN = process.env.HAXBALL_TOKEN; 
@@ -9,7 +10,11 @@ const banliIPler = new Set();
 const banliPublicKeys = new Set();
 const susturulanlar = new Map();
 
-Haxball().then((HBInit) => {
+Haxball({
+  puppeteer: {
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  }
+}).then((HBInit) => {
   const room = HBInit({
     roomName: "⚽ 3v3 Auto-Match | Ofsayt + Ban/Mute",
     maxPlayers: 16,
